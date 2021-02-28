@@ -1,0 +1,34 @@
+,MKPF: Cabecera de doc.material,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5
+0,CAMPO,E.DATOS,T.DATO,LONG,DECIM,DESCRIPCION
+1,MANDT,MANDT,CLNT,3,0,Mandante
+2,MBLNR,MBLNR,CHAR,10,0,Número de documento material
+3,MJAHR,MJAHR,NUMC,4,0,Ejercicio del documento de material
+4,VGART,VGART,CHAR,2,0,Clase de operación
+5,BLART,BLART,CHAR,2,0,Clase de documento
+6,BLAUM,BLAUM,CHAR,2,0,Clase de documento del documento de revaloración
+7,BLDAT,BLDAT,DATS,8,0,Fecha de documento en documento
+8,BUDAT,BUDAT,DATS,8,0,Fecha de contabilización en el documento
+9,CPUDT,CPUDT,DATS,8,0,Día del registro del documento contable
+10,CPUTM,CPUTM,TIMS,6,0,Hora de entrada
+11,AEDAT,AEDAT,DATS,8,0,Fecha última modificación
+12,USNAM,USNAM,CHAR,12,0,Nombre del usuario
+13,TCODE,CHAR4,CHAR,4,0,"Ámbito no definido , posiblemente para niveles patch"
+14,XBLNR,XBLNR1,CHAR,16,0,Número de documento de referencia
+15,BKTXT,BKTXT,CHAR,25,0,Texto de cabecera de documento
+16,FRATH,FRATH,CURR,13,2,Costes indirectos de adquisición no planificados
+17,FRBNR,FRBNR1,CHAR,16,0,Número de carta de porte en entrada de mercancías
+18,WEVER,WEVER,CHAR,1,0,Versión para la impresión del vale de acompañam. mcías.
+19,XABLN,XABLN,CHAR,10,0,Nº vale de acompañamiento mercancías
+20,AWSYS,LOGSYSTEM,CHAR,10,0,Sistema lógico
+21,BLA2D,BLA2D,CHAR,2,0,Clase documento p.doc.adicional en gestión cuentas compras
+22,TCODE2,TCODE,CHAR,20,0,Código transacción
+23,BFWMS,BFWMS,CHAR,1,0,Control contabilización p.WMS externo
+24,EXNUM,EXNUM,CHAR,10,0,Número datos de comercio exterior en doc.MM y SD
+25,SPE_BUDAT_UHR,WAUHR,TIMS,6,0,Hora de salida de mercancías (local con ref.a un centro)
+26,SPE_BUDAT_ZONE,TZNZONE,CHAR,6,0,Huso horario
+27,LE_VBELN,VBELN_VL,CHAR,10,0,Entrega
+28,SPE_LOGSYS,/SPE/_LOGSYS_MD,CHAR,10,0,Sistema lógico del documento de material de EWM
+29,SPE_MDNUM_EWM,/SPE/MDNUM_EWM,CHAR,16,0,Número del documento de material en EWM
+30,GTS_CUSREF_NO,/SAPSLL/SCREF_SPI,CHAR,35,0,Número de referencia aduanera para desguace
+31,.APPEND,JVMKPF,STRU,0,0,JV Fields for MKPF
+32,KNUMV,KNUMV,CHAR,10,0,Número de la condición de documento

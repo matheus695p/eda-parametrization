@@ -1,0 +1,186 @@
+,MSEG: Segmento doc.material,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5
+0,CAMPO,E.DATOS,T.DATO,LONG,DECIM,DESCRIPCION
+1,MANDT,MANDT,CLNT,3,0,Mandante
+2,MBLNR,MBLNR,CHAR,10,0,Número de documento material
+3,MJAHR,MJAHR,NUMC,4,0,Ejercicio del documento de material
+4,ZEILE,MBLPO,NUMC,4,0,Posición en documento de material
+5,.INCLUDE,DOCUMENT_STRUCTURE,STRU,0,0,Estruc. documento
+6,LINE_ID,MB_LINE_ID,NUMC,6,0,Identificación unívoca de la posición de documento
+7,PARENT_ID,MB_PARENT_ID,NUMC,6,0,Identificación de las líneas inmediatamente supraordenadas
+8,LINE_DEPTH,MB_LINE_DEPTH,NUMC,2,0,Nivel jerárquico de la línea en el documento
+9,BWART,BWART,CHAR,3,0,Clase de movimiento (gestión stocks)
+10,XAUTO,MB_XAUTO,CHAR,1,0,Posición creada automáticamente
+11,MATNR,MATNR,CHAR,18,0,Número de material
+12,WERKS,WERKS_D,CHAR,4,0,Centro
+13,LGORT,LGORT_D,CHAR,4,0,Almacén
+14,CHARG,CHARG_D,CHAR,10,0,Número de lote
+15,INSMK,MB_INSMK,CHAR,1,0,Tipo stock
+16,ZUSCH,DZUSCH,CHAR,1,0,Clave de estado de lote
+17,ZUSTD,DZUSTD,CHAR,1,0,Lote en stock no libre
+18,SOBKZ,SOBKZ,CHAR,1,0,Indicador de stock especial
+19,LIFNR,ELIFN,CHAR,10,0,Número de cuenta del proveedor
+20,KUNNR,EKUNN,CHAR,10,0,Número de cuenta del cliente
+21,KDAUF,KDAUF,CHAR,10,0,Número del pedido de cliente
+22,KDPOS,KDPOS,NUMC,6,0,Número de posición en el pedido de cliente
+23,KDEIN,KDEIN,NUMC,4,0,Reparto pedido de cliente
+24,PLPLA,PLPLA,CHAR,10,0,Distribución diferencias
+25,SHKZG,SHKZG,CHAR,1,0,Indicador debe/haber
+26,WAERS,WAERS,CUKY,5,0,Clave de moneda
+27,DMBTR,DMBTR,CURR,13,2,Importe en moneda local
+28,BNBTR,BNBTR,CURR,13,2,Costes indirectos de adquisición en moneda local
+29,BUALT,BUALT,CURR,13,2,Importe contab.en control alternativo de precios
+30,SHKUM,SHKUM,CHAR,1,0,Indicador debe/haber de la revaloración
+31,DMBUM,DMBUM,CURR,13,2,Importe de revaloración p. contabilización en periodo ant.
+32,BWTAR,BWTAR_D,CHAR,10,0,Clase de valoración
+33,MENGE,MENGE_D,QUAN,13,3,Cantidad
+34,MEINS,MEINS,UNIT,3,0,Unidad de medida base
+35,ERFMG,ERFMG,QUAN,13,3,Cantidad en unidad de medida de entrada
+36,ERFME,ERFME,UNIT,3,0,Unidad de medida de entrada
+37,BPMNG,BPMNG,QUAN,13,3,Cantidad en unidad de medida de precio de pedido
+38,BPRME,BBPRM,UNIT,3,0,Unidad medida de precio de pedido
+39,EBELN,BSTNR,CHAR,10,0,Número de pedido
+40,EBELP,EBELP,NUMC,5,0,Número de posición del documento de compras
+41,LFBJA,LFBJA,NUMC,4,0,Ejercicio de un documento de referencia
+42,LFBNR,LFBNR,CHAR,10,0,Número de documento de un doc.de referencia
+43,LFPOS,LFPOS,NUMC,4,0,Posición de un documento de referencia
+44,SJAHR,MJAHR,NUMC,4,0,Ejercicio del documento de material
+45,SMBLN,MBLNR,CHAR,10,0,Número de documento material
+46,SMBLP,MBLPO,NUMC,4,0,Posición en documento de material
+47,ELIKZ,ELIKZ,CHAR,1,0,Indicador de entrega final
+48,SGTXT,SGTXT,CHAR,50,0,Texto posición
+49,EQUNR,EQUNR,CHAR,18,0,Número de equipo
+50,WEMPF,WEMPF,CHAR,12,0,Destinatario de mercancías
+51,ABLAD,ABLAD,CHAR,25,0,Puesto de descarga
+52,GSBER,GSBER,CHAR,4,0,División
+53,KOKRS,KOKRS,CHAR,4,0,Sociedad CO
+54,PARGB,PARGB,CHAR,4,0,División del interlocutor comercial
+55,PARBU,PARBU,CHAR,4,0,Sociedad imput.
+56,KOSTL,KOSTL,CHAR,10,0,Centro de coste
+57,PROJN,PROJN,CHAR,16,0,Viejísimo : nº de proyecto: NO utilizar ->PS_POSNR
+58,AUFNR,AUFNR,CHAR,12,0,Número de orden
+59,ANLN1,ANLN1,CHAR,12,0,Número principal de activo fijo
+60,ANLN2,ANLN2,CHAR,4,0,Subnúmero de activo fijo
+61,XSKST,XSKST,CHAR,1,0,Indicador: Contabilización estadística a centro de coste
+62,XSAUF,XSAUF,CHAR,1,0,Indicador: Contabilización a orden es estadística
+63,XSPRO,XSPRO,CHAR,1,0,Indicador: Contabilización a proyectos es estadística
+64,XSERG,XSERG,CHAR,1,0,Indicador: la contabilización en el resultado es estadística
+65,GJAHR,GJAHR,NUMC,4,0,Ejercicio
+66,XRUEM,XRUEM,CHAR,1,0,Indicador: Permitir contab.retroactiva en período anterior
+67,XRUEJ,XRUEJ,CHAR,1,0,Indicador: Contab.retroactiva en el ejercicio anterior
+68,BUKRS,BUKRS,CHAR,4,0,Sociedad
+69,BELNR,BELNR_D,CHAR,10,0,Número de un documento contable
+70,BUZEI,BUZEI,NUMC,3,0,Número del apunte contable dentro del documento contable
+71,BELUM,BELNR_D,CHAR,10,0,Número de un documento contable
+72,BUZUM,BUZEI,NUMC,3,0,Número del apunte contable dentro del documento contable
+73,RSNUM,RSNUM,NUMC,10,0,Número de la reserva/las necesidades secundarias
+74,RSPOS,RSPOS,NUMC,4,0,Número de posición de reserva/necesidades secundarias
+75,KZEAR,KZEAR,CHAR,1,0,Salida final de la reserva
+76,PBAMG,MENGE_D,QUAN,13,3,Cantidad
+77,KZSTR,KZSTR,CHAR,1,0,Operación relevante para estadística
+78,UMMAT,UMMAT,CHAR,18,0,Material receptor/emisor
+79,UMWRK,UMWRK,CHAR,4,0,Centro receptor/emisor
+80,UMLGO,UMLGO,CHAR,4,0,Almacén receptor/emisor
+81,UMCHA,UMCHA,CHAR,10,0,Lote receptor/emisor
+82,UMZST,UMZST,CHAR,1,0,Estado del lote de traslado
+83,UMZUS,UMZUS,CHAR,1,0,Clave de estado del lote de traslado
+84,UMBAR,UMBAR,CHAR,10,0,Clase de valoración del lote de traslado
+85,UMSOK,UMSOK,CHAR,1,0,Indicador de stock especial del traslado
+86,KZBEW,KZBEW,CHAR,1,0,Indicador de movimiento
+87,KZVBR,KZVBR,CHAR,1,0,Contabilización de consumo
+88,KZZUG,KZZUG,CHAR,1,0,Indicador de entrada
+89,WEUNB,WEUNB,CHAR,1,0,Entrada de mercancías no valorada
+90,PALAN,PALAN,DEC,11,0,Número de palets LVS
+91,LGNUM,LGNUM,CHAR,3,0,Núm.almacén/Complejo alm.
+92,LGTYP,LGTYP,CHAR,3,0,Tipo almacén
+93,LGPLA,LGPLA,CHAR,10,0,Ubicación
+94,BESTQ,BESTQ,CHAR,1,0,Diferenciación de stock en sistema de gestión de almacenes
+95,BWLVS,BWLVS,NUMC,3,0,Cl.movim.gestión almacenes
+96,TBNUM,TBNUM,NUMC,10,0,Número de necesidad de transporte
+97,TBPOS,TBPOS,NUMC,4,0,Posición de necesidad transporte
+98,XBLVS,XBLVS,CHAR,1,0,Indicador: Contabilización en sistema gestión almacenes
+99,VSCHN,T333_VSCHN,CHAR,1,0,Ind.: Contab.interfase en tp.alm y ubicación procedencia
+100,NSCHN,T333_NSCHN,CHAR,1,0,Ind.: Contab.interfase p.tp.almacén y ubicación de destino
+101,DYPLA,DYPLA,CHAR,1,0,Indicador: Ubicación dinámica
+102,UBNUM,UBNUM,NUMC,10,0,Número de traspaso
+103,TBPRI,TBPRI,CHAR,1,0,Prioridad del transporte
+104,TANUM,TANUM,NUMC,10,0,Número de orden de transporte
+105,WEANZ,WEANZ,NUMC,3,0,Cantidad de vales de acompañamiento de mercancía a imprimir
+106,GRUND,MB_GRBEW,NUMC,4,0,Motivo del movimiento
+107,EVERS,EVERS,CHAR,2,0,Normas de envío
+108,EVERE,EVERE,CHAR,2,0,Cumplimiento de normas de envío
+109,IMKEY,IMKEY,CHAR,8,0,Clave interna para objeto inmueble
+110,KSTRG,KSTRG,CHAR,12,0,Objeto de coste
+111,PAOBJNR,RKEOBJNR,NUMC,10,0,Número para objetos PA (CO-PA)
+112,PRCTR,PRCTR,CHAR,10,0,Centro de beneficio
+113,PS_PSP_PNR,PS_PSP_PNR,NUMC,8,0,Elemento del plan de estructura de proyecto (elemento PEP)
+114,NPLNR,NPLNR,CHAR,12,0,Número de grafo para imputación
+115,AUFPL,CO_AUFPL,NUMC,10,0,Nº hoja ruta de operaciones en orden
+116,APLZL,CIM_COUNT,NUMC,8,0,Contador interno
+117,AUFPS,CO_POSNR,NUMC,4,0,Número de posición de orden
+118,VPTNR,JV_PART,CHAR,10,0,Nº de cliente del interlocutor
+119,FIPOS,FIPOS,CHAR,14,0,Posición presupuestaria
+120,SAKTO,SAKNR,CHAR,10,0,Número de la cuenta de mayor
+121,BSTMG,MB_BSTMG,QUAN,13,3,Cantidad entrada de mercancías en unidad de medida de pedido
+122,BSTME,BSTME,UNIT,3,0,Unidad de medida de pedido
+123,XWSBR,XWSBR,CHAR,1,0,Anul.EM permitida en verif.fact.según EM a pesar de factura
+124,EMLIF,EMLIF,CHAR,10,0,Proveedor para el que se debe efectuar la entrega
+125,.INCLUDE,CI_COBL,STRU,0,0,                                                            
+126,EXBWR,EXBWR,CURR,13,2,Importe de contab.introducido externamente en moneda local
+127,VKWRT,VKWRT,CURR,13,2,Valor p.precios de venta con IVA
+128,AKTNR,WAKTION,CHAR,10,0,Acción
+129,ZEKKN,DZEKKN,NUMC,2,0,Número actual de la imputación
+130,VFDAT,VFDAT,DATS,8,0,Fecha de caducidad o fecha preferente de consumo
+131,CUOBJ_CH,CUOBJ_CH,NUMC,18,0,Número de objeto interno de selección de lote
+132,EXVKW,EXVKW,CURR,13,2,Valor de venta introducido externamente en moneda local
+133,PPRCTR,PPRCTR,CHAR,10,0,Centro de beneficio interlocutor
+134,RSART,RSART,CHAR,1,0,Clase de registro
+135,GEBER,BP_GEBER,CHAR,10,0,Fondo
+136,FISTL,FISTL,CHAR,16,0,Centro gestor
+137,MATBF,MATBF,CHAR,18,0,Material en base al cual se gestiona el stock
+138,UMMAB,UMMAT,CHAR,18,0,Material receptor/emisor
+139,BUSTM,BUSTM,CHAR,4,0,String de contabilización para cantidades
+140,BUSTW,BUSTW,CHAR,4,0,String de contabilización para valores
+141,MENGU,MENGU,CHAR,1,0,Actualización cantidades en registro maestro materiales
+142,WERTU,WERTU,CHAR,1,0,Actualización de valores en registro maestro de materiales
+143,LBKUM,LBKUM_MSEG,QUAN,13,3,Stock total valorado antes de la contabilización
+144,SALK3,SALK3_MSEG,CURR,13,2,Valor del stock total valorado antes de la contabilización
+145,VPRSV,VPRSV,CHAR,1,0,Indicador de control de precios
+146,FKBER,FKBER,CHAR,16,0,Área funcional
+147,DABRBZ,DABRBEZ,DATS,8,0,Fecha de referencia para la liquidación
+148,VKWRA,VKWRA,CURR,13,2,Valor para precios venta sin IVA
+149,DABRZ,DABRBEZ,DATS,8,0,Fecha de referencia para la liquidación
+150,XBEAU,XBEAU,CHAR,1,0,Pedido creado durante EM
+151,LSMNG,LSMNG,QUAN,13,3,Cantidad en unidad de medida de nota de entrega
+152,LSMEH,LSMEH,UNIT,3,0,Unidad de medida en la nota de entrega
+153,KZBWS,KZBWS,CHAR,1,0,Valoración stock especial
+154,QINSPST,QINSPST,CHAR,1,0,Status de la inspección en la entrada de mercancías
+155,URZEI,URZEI,NUMC,4,0,Línea original en documento material
+156,J_1BEXBASE,J_1BEXBASE,CURR,13,2,Alternate base amount in document currency
+157,MWSKZ,MWSKZ,CHAR,2,0,Indicador IVA
+158,TXJCD,TXJCD,CHAR,15,0,Domicilio fiscal
+159,EMATN,EMATN,CHAR,18,0,Número material p.núm.pieza fabricante
+160,J_1AGIRUPD,J_1AGIRUPD,CHAR,1,0,Revalorización de salida mercancías ejecutada
+161,VKMWS,MWSKZ,CHAR,2,0,Indicador IVA
+162,HSDAT,HSDAT,DATS,8,0,Fecha de producción/fabricación
+163,BERKZ,BERKZ,CHAR,1,0,Ind.puesta a disposición p.suministro producción
+164,MAT_KDAUF,MAT_KDAUF,CHAR,10,0,Número pedido cliente de stock para pedido cliente valorado
+165,MAT_KDPOS,MAT_KDPOS,NUMC,6,0,Posición pedido cliente de stock p.pedido cliente valorado
+166,MAT_PSPNR,MAT_PSPNR,NUMC,8,0,Elemento PEP del stock para pedido de cliente valorado
+167,XWOFF,XWOFF,CHAR,1,0,Formación de valor abierta
+168,BEMOT,BEMOT,CHAR,2,0,Criterio p.cálculo
+169,PRZNR,CO_PRZNR,CHAR,12,0,Proceso empresarial
+170,LLIEF,LLIEF,CHAR,10,0,Proveedor para suministro
+171,LSTAR,LSTAR,CHAR,6,0,Clase de actividad
+172,XOBEW,XOBEW,CHAR,1,0,Indicador: Stock de subcontratación valorado por separado
+173,GRANT_NBR,GM_GRANT_NBR,CHAR,20,0,Subvención
+174,ZUSTD_T156M,BAMOK_MSEG,CHAR,1,0,Modificación de tipo de stocks (leer tabla T156M)
+175,SPE_GTS_STOCK_TY,/SPE/GTS_STOCK_TYPE,CHAR,1,0,Tipo de stocks GTS
+176,.APPEND,/BEV2/EDMSEG_A,STRU,0,0,Campos p.impuestos especiales documento de material (MSEG)
+177,/BEV2/ED_KZ_VER,/BEV2/EDKZ_VER,CHAR,1,0,Estado de tratamiento doc.de material p.impuesto especial
+178,/BEV2/ED_USER,USNAM,CHAR,12,0,Nombre del usuario
+179,/BEV2/ED_AEDAT,AEDAT,DATS,8,0,Fecha última modificación
+180,/BEV2/ED_AETIM,SYUZEIT,TIMS,6,0,Hora actual del servidor de aplicación
+181,.APPEND,JVMSEG,STRU,0,0,Joint Venture Fields
+182,OINAVNW,NAVNW,CURR,13,2,IVA soportado no deducible
+183,OICONDCOD,JV_CONDCOD,CHAR,2,0,Indicador del joint venture (clave de condición)
+184,CONDI,JV_CONDCOD,CHAR,2,0,Indicador del joint venture (clave de condición)

@@ -1,0 +1,66 @@
+,R_MOVIMIENTOS_CARGA: TODA LA DATA DE MOVIMIENTOS,Unnamed: 1,Unnamed: 2
+0,CAMPO,T.DATO/LONG,DESCIPCION
+1,num_ejerc,varchar2(12),Ejercicio del documento de material
+2,num_dcmat,varchar2(30),Número de documento material
+3,cod_cl_operc,varchar2(6),Clase de operación
+4,dsc_cl_operc,varchar2(180),Clase de operación
+5,cod_cl_dcmat,varchar2(6),Clase de documento
+6,cl_dcrev,varchar2(6),Clase de documento del documento de revaloración
+7,fch_dcmat,varchar2(24),Fecha de documento en documento
+8,fch_contb_dcmat,varchar2(24),Fecha de contabilización en el documento
+9,num_dc_ref,varchar2(48),Número de documento de referencia
+10,txt_cab,varchar2(75),Texto de cabecera de documento
+11,txt_cab_ad,varchar2(48),Número de carta de porte en entrada de mercancías
+12,num_entrega,varchar2(30),Entrega
+13,num_dato_comext,varchar2(30),Número datos de comercio exterior en doc.MM y SD
+14,cod_transacc,varchar2(60),Código transacción
+15,usu_crea,varchar2(36),Nombre del usuario
+16,fch_modif_dcmat,varchar2(24),Fecha última modificación
+17,num_pos_dcmat,varchar2(12),Posición en documento de material
+18,cod_cl_mov,varchar2(9),Clase de movimiento (gestión stocks)
+19,dsc_cl_mov,varchar2(60),Clase de movimiento (gestión stocks)
+20,cod_mat,varchar2(9),Número de material
+21,cod_centro,varchar2(12),Centro
+22,cod_alm,varchar2(12),Almacén
+23,dsc_alm,varchar2(48),Almacén
+24,num_lote,varchar2(30),Número de lote
+25,cod_tipo_stk,varchar2(3),Tipo stock
+26,dsc_tipo_stk,varchar2(180),Tipo stock
+27,flg_stk_esp,varchar2(3),Indicador de stock especial
+28,num_cl_val,varchar2(30),Clase de valoración
+29,ctd_dcmat,"number(13,3)",Cantidad
+30,um,varchar2(9),Unidad de medida base
+31,cod_mat_recp,varchar2(9),Material receptor/emisor
+32,cod_centro_recp,varchar2(12),Centro receptor/emisor
+33,cod_alm_recp,varchar2(12),Almacén receptor/emisor
+34,dsc_alm_recp,varchar2(48),Almacén receptor/emisor
+35,num_lote_recp,varchar2(30),Lote receptor/emisor
+36,num_cl_val_recp,varchar2(30),Clase de valoración del lote de traslado
+37,flg_stk_esp_recp,varchar2(3),Indicador de stock especial del traslado
+38,num_cod_proveedor,varchar2(30),Número de cuenta del proveedor
+39,num_cod_cliente,varchar2(30),Número de cuenta del cliente
+40,num_ped_cli,varchar2(30),Número del pedido de cliente
+41,num_pos_ped_cli,varchar2(18),Número de posición en el pedido de cliente
+42,flg_debhab,varchar2(3),Indicador debe/haber
+43,cod_mon,varchar2(15),Clave de moneda
+44,imp_mon_loc,"number(13,2)",Importe en moneda local
+45,num_oc,varchar2(30),Número de pedido
+46,num_pos_oc,varchar2(15),Número de posición del documento de compras
+47,num_ejerc_oc,varchar2(12),Ejercicio de un documento de referencia
+48,flg_entrg_final,varchar2(3),Indicador de entrega final
+49,txt_det,varchar2(150),Texto posición
+50,cod_dest_merc,varchar2(36),Destinatario de mercancías
+51,cod_soc_co,varchar2(12),Sociedad CO
+52,cod_cc,varchar2(30),Centro de coste
+53,num_orden,varchar2(36),Número de orden
+54,num_actfijo,varchar2(36),Número principal de activo fijo
+55,num_sub_actfijo,varchar2(12),Subnúmero de activo fijo
+56,cod_soc,varchar2(12),Sociedad
+57,num_reserva,varchar2(30),Número de la reserva/las necesidades secundarias
+58,num_pos_reserva,varchar2(12),Número de posición de reserva/necesidades secundarias
+59,flg_sal_fin_reserva,varchar2(3),Salida final de la reserva
+60,cod_cbeneficio,varchar2(30),Centro de beneficio
+61,num_cta_mayor,varchar2(30),Número de la cuenta de mayor
+62,ctd_stk_ant,"number(13,3)",Stock total valorado antes de la contabilización
+63,imp_stk_ant,"number(13,2)",Valor del stock total valorado antes de la contabilización
+64,cod_empresa,integer,Codigo Empresa Rey
