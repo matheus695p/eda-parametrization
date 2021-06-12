@@ -1,0 +1,1 @@
+sam build --profile tiresopt-anglo && sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket tiresopt-deploy-anglo --profile tiresopt-anglo && sam deploy --tags Client=anglo --profile tiresopt-anglo

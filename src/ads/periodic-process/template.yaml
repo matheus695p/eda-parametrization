@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Template de proceso de ads periodico para tiresopt-baseline
+
+Parameters:
+  BVersion:
+    Description: Boto3 Version
+    Type: String
+    Default: 1
+
+  PVersion:
+    Description: Pandas Version
+    Type: String
+    Default: 1
+
+  WVersion:
+    Description: Wrangler Version
+    Type: String
+    Default: 1
+
+  CleaningVersion:
+    Description: Cleaning Version
+    Type: String
+    Default: 1
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        rawbucket: !Sub '{{resolve:ssm:RawBucket:1}}'
+        inputbucket: !Sub '{{resolve:ssm:InputBucket:1}}'
+        outputbucket: !Sub '{{resolve:ssm:OutputBucket:1}}'
+        dynamodbads: !Sub '{{resolve:ssm:DynamoDBADS:1}}'
+        dynamodbanomalias: !Sub '{{resolve:ssm:DBAnomalias:1}}'
+        statusdatasource: !Sub '{{resolve:ssm:StatusDataSource:1}}'
+        roleusers: !Sub '{{resolve:ssm:tiresoptUsers:1}}'
+        # funcionpredict: !Sub '{{resolve:ssm:CodesPredict:1}}'
+        # stage: !Sub ${Stage}
+        # client: !Sub '{{resolve:ssm:mine:1}}'
+        # flota: !Sub '{{resolve:ssm:flotacaex:1}}'
+        # aljibe: !Sub '{{resolve:ssm:flotaaljibes:1}}'
+        # fuentes: !Sub '{{resolve:ssm:fuentes_disponibles:1}}'
+
+Resources:
+  # Rolegeneral para lambdas de ejecución
+  LambdaRoleForRuleExecution:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${AWS::StackName}-lambda-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              Service: lambda.amazonaws.com
+      Policies:
+        - PolicyName: WriteCloudWatchLogs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: 'arn:aws:logs:*:*:*'
+        - PolicyName: AllAccessOnS3
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 's3:*'
+                Resource: '*'
+        - PolicyName: SsmPermision
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'ssm:*'
+                Resource: '*'
+        - PolicyName: FullOnDynamoDBO
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:*'
+                  - 'dax:*'
+                Resource: '*'
+        - PolicyName: allowLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - lambda:*
+              Resource: "*"
+
+# Lambda del ads periodico
+  PeriodicADS:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}
+      MemorySize: 1024
+      Timeout: 300
+      Runtime: python3.7
+      CodeUri: periodic-ads/
+      Handler: main_periodic_ads.handler
+      Role: !GetAtt LambdaRoleForRuleExecution.Arn
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:awswrangler:${WVersion}'
+
+Outputs:
+  PeriodicADS:
+    Description: "ADS periodico cada X horas"
+    Value: !Ref PeriodicADS
+    Export:
+        Name: !Sub "${AWS::StackName}"

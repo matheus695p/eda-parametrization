@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Template de Buckets para tire maintenance anglo
+Globals:
+  Function:
+    Timeout: 120
+
+Parameters:
+  Client:
+    Type: String
+    Default: anglo
+
+  DeployBucketName:
+    Type: String
+    Default: tiresopt-deploy-${Client}
+
+Resources:
+
+  DeployBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName : !Sub tiresopt-deploy-${Client}
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration: 
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: IARule
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: '30'
+                StorageClass: STANDARD_IA
+              - TransitionInDays: '90'
+                StorageClass: GLACIER
+
+Outputs:
+  DeployBucket:
+    Description: "Bucket de deploy"
+    Value: !GetAtt DeployBucket.Arn

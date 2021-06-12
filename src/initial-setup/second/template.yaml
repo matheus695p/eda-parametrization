@@ -1,0 +1,534 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Template de seteo inicial de cosas base para tiresopt anglo
+
+Globals:
+  Function:
+    Timeout: 120
+
+Parameters:
+  Client:
+    Type: String
+    Default: anglo
+
+  Proyecto:
+    Type: String
+    Default: tiresopt
+
+  RawBucketName:
+    Type: String
+    Default: tiresopt-${Client}-raw
+
+  InputBucketName:
+    Type: String
+    Default: tiresopt-${Client}-input
+
+  OutputBucketName:
+    Type: String
+    Default: tiresopt-${Client}-output
+
+  DynamoUsers:
+    Type: String
+    Default: tiresopt-${Client}-users
+
+  FlotaCaex:
+    Type: String
+    Default: KOM930
+
+  PrefijoCaex:
+    Type: String
+    Default: CDH
+
+  VelocidadMaxima:
+    Type: String
+    Default: 64.5
+
+  PesoDelanteroDescargado:
+    Type: String
+    Default: 0.47
+
+  PesoTraseroDescargado:
+    Type: String
+    Default: 0.53
+
+  PesoDelanteroCargado:
+    Type: String
+    Default: 0.33
+
+  PesoTraseroCargado:
+    Type: String
+    Default: 0.67
+
+  CoeficienteRoceEstatico:
+    Type: String
+    Default: 0.6
+
+  CoeficienteRoceDinamico:
+    Type: String
+    Default: 0.55
+
+
+Resources:
+  RawBuckettiresopt:
+      Type: AWS::S3::Bucket
+      DependsOn:
+        - SNSTopicPolicyMaintenance
+        - SNSTopicPolicygps
+        - SNSTopicPolicyMems
+        - SNSTopicPolicyLoads
+      Properties:
+        BucketName: !Sub tiresopt-${Client}-raw
+        BucketEncryption: 
+          ServerSideEncryptionConfiguration: 
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+        LifecycleConfiguration:
+          Rules:
+            - Id: IARule
+              Status: Enabled
+              Transitions:
+                - TransitionInDays: '30'
+                  StorageClass: STANDARD_IA
+                - TransitionInDays: '360'
+                  StorageClass: GLACIER
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - "*"
+              AllowedMethods:
+                - POST
+                - GET
+                - PUT
+                - DELETE
+                - HEAD
+              AllowedHeaders:
+                - "*"
+        NotificationConfiguration:
+          TopicConfigurations:
+            - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: prefix
+                      Value: maintenance
+              Topic: !Ref CleanTopicMaintenance
+            - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: prefix
+                      Value: gps
+              Topic: !Ref CleanTopicgps
+            - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: prefix
+                      Value: mems
+              Topic: !Ref CleanTopicMems
+            - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: prefix
+                      Value: loads
+              Topic: !Ref CleanTopicLoads
+
+  SNSTopicPolicyMaintenance:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref CleanTopicMaintenance
+      PolicyDocument:
+        Id: "MyTopicPolicy"
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Statement-id"
+            Effect: "Allow"
+            Principal:
+              AWS: '*'
+            Action: "sns:Publish"
+            Resource: !Ref CleanTopicMaintenance
+            Condition:
+              ArnLike:
+                aws:SourceArn:
+                  Fn::Join:
+                    - ""
+                    - - 'arn:aws:s3:::'
+                      - !Sub tiresopt-${Client}-raw
+
+  SNSTopicPolicyMems:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref CleanTopicMems
+      PolicyDocument:
+        Id: "MyTopicPolicy"
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Statement-id"
+            Effect: "Allow"
+            Principal:
+              AWS: '*'
+            Action: "sns:Publish"
+            Resource: !Ref CleanTopicMems
+            Condition:
+              ArnLike:
+                aws:SourceArn:
+                  Fn::Join:
+                    - ""
+                    - - 'arn:aws:s3:::'
+                      - !Sub tiresopt-${Client}-raw
+
+  # SNS TopicPolicy
+  SNSTopicPolicygps:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref CleanTopicgps
+      PolicyDocument:
+        Id: "MyTopicPolicy"
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Statement-id"
+            Effect: "Allow"
+            Principal:
+              AWS: '*'
+            Action: "sns:Publish"
+            Resource: !Ref CleanTopicgps
+            Condition:
+              ArnLike:
+                aws:SourceArn:
+                  Fn::Join:
+                    - ""
+                    - - 'arn:aws:s3:::'
+                      - !Sub tiresopt-${Client}-raw
+
+  SNSTopicPolicyLoads:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref CleanTopicLoads
+      PolicyDocument:
+        Id: "MyTopicPolicy"
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Statement-id"
+            Effect: "Allow"
+            Principal:
+              AWS: '*'
+            Action: "sns:Publish"
+            Resource: !Ref CleanTopicLoads
+            Condition:
+              ArnLike:
+                aws:SourceArn:
+                  Fn::Join:
+                    - ""
+                    - - 'arn:aws:s3:::'
+                      - !Sub tiresopt-${Client}-raw
+
+  MyDynamoDBADS:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub ads
+      AttributeDefinitions:
+        -
+          AttributeName: "equipo"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "equipo"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  MyDynamoDBADSParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub DynamoDBADS
+      Value: !Sub ads
+      Type: String
+
+
+  MyDynamoDBAnomalias:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub anomalias
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+      AttributeDefinitions:
+        -
+          AttributeName: "fecha"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "fecha"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  MyDynamoDBAnomaliasStreamParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub DBAnomaliasStream
+      Value: !GetAtt MyDynamoDBAnomalias.StreamArn
+      Type: String
+
+  MyDynamoDBAnomaliasParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub DBAnomalias
+      Value: !Sub anomalias
+      Type: String
+
+
+  tiresoptUsers:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub tiresopt-users
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+      AttributeDefinitions:
+        -
+          AttributeName: "role"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "role"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  tiresoptUsersParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub tiresoptUsers
+      Value: !Sub tiresopt-users
+      Type: String
+
+
+
+  StatusDataSource:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub status-data-sources
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+      AttributeDefinitions:
+        -
+          AttributeName: "Source"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "Source"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  StatusDataSourceParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub StatusDataSource
+      Value: !Sub StatusDataSource
+      Type: String
+
+  # SNS Topic
+  CleanTopicMaintenance:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: !Sub Topic-Maintenance
+
+  CleanTopicMaintenanceParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub CleanTopicMaintenance
+      Value: !Ref CleanTopicMaintenance
+      Type: String
+
+  CleanTopicgps:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: !Sub Topic-gps
+
+  CleanTopicgpsParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub CleanTopicgps
+      Value: !Ref CleanTopicgps
+      Type: String
+
+  CleanTopicMems:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: !Sub Topic-mems
+
+  CleanTopicMemsParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub CleanTopicMems
+      Value: !Ref CleanTopicMems
+      Type: String
+
+  CleanTopicLoads:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: !Sub Topic-Loads
+
+  CleanTopicLoadsParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub CleanTopicLoads
+      Value: !Ref CleanTopicLoads
+      Type: String
+
+  AnomalyTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: !Sub AnomalyTopic
+
+  AnomalyTopicParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub AnomalyTopic
+      Value: !Ref AnomalyTopic
+      Type: String
+
+  InputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName : !Sub tiresopt-${Client}-input
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration: 
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: IARule
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: '240'
+                StorageClass: STANDARD_IA
+              - TransitionInDays: '360'
+                StorageClass: GLACIER
+                
+  OutputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName : !Sub tiresopt-${Client}-output
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration: 
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: IARule
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: '240'
+                StorageClass: STANDARD_IA
+              - TransitionInDays: '360'
+                StorageClass: GLACIER
+
+
+  RawBucketParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub RawBucket
+      Value: !Sub tiresopt-${Client}-raw
+      Type: String
+
+  InputBucketParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub InputBucket
+      Value: !Ref InputBucket
+      Type: String
+
+  OutputBucketParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub OutputBucket
+      Value: !Ref OutputBucket
+      Type: String
+
+  FlotaCaexParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub FlotaCaex
+      Value: !Ref FlotaCaex
+      Type: String
+
+  PrefijoCaexParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub PrefijoCaex
+      Value: !Ref PrefijoCaex
+      Type: String
+
+  VelocidadMaximaParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub VelocidadMaxima
+      Value: !Ref VelocidadMaxima
+      Type: String
+
+
+  PesoDelanteroDescargadoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub PesoDelanteroDescargado
+      Value: !Ref PesoDelanteroDescargado
+      Type: String
+
+  PesoTraseroDescargadoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub PesoTraseroDescargado
+      Value: !Ref PesoTraseroDescargado
+      Type: String
+
+  PesoDelanteroCargadoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub PesoDelanteroCargado
+      Value: !Ref PesoDelanteroCargado
+      Type: String
+
+  PesoTraseroCargadoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub PesoTraseroCargado
+      Value: !Ref PesoTraseroCargado
+      Type: String
+
+  CoeficienteRoceEstaticoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub CoeficienteRoceEstatico
+      Value: !Ref CoeficienteRoceEstatico
+      Type: String
+
+  CoeficienteRoceDinamicoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub CoeficienteRoceDinamico
+      Value: !Ref CoeficienteRoceDinamico
+      Type: String
+
+
+Outputs:
+  InputBucket:
+    Description: "Bucket de Input"
+    Value: !GetAtt InputBucket.Arn
+  OutputBucket:
+    Description: "Bucket de Output"
+    Value: !GetAtt OutputBucket.Arn

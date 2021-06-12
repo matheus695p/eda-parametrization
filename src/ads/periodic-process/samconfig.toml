@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "ads-periodic-process"
+s3_bucket = "tiresopt-deploy-anglo"
+s3_prefix = "bucket"
+region = "us-east-1"
+capabilities = "CAPABILITY_NAMED_IAM"
+# aws cloudformation delete-stack --stack-name ads-periodic-process
