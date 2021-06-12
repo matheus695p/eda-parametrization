@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+
 __pycache__/
 *.py[cod]
 *$py.class
@@ -10,18 +11,14 @@ __pycache__/
 packaged.yaml
 # Distribution / packaging
 .Python
-build/
+
 develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
 lib64/
 parts/
 sdist/
 var/
 wheels/
+
 pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
@@ -32,9 +29,29 @@ MANIFEST
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
+
 *.manifest
 *.spec
 
+*.mp4
+# carpetas que no quiero agregar
+data/*.txt
+data/*.csv
+data/featured/*.csv
+# resultados de los modelos
+results/energy-model
+results/manufacturing-model
+
+# modulos de shiphns
+
+source/
+
+.gitignore.swp
+make.bat
+Makefile
+
+
+# Asdas
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -106,15 +123,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
 
 # Rope project settings
 .ropeproject
@@ -141,8 +150,6 @@ config.ini
 
 # AWS
 .aws-sam
-
-# png
 
 
 # Models
