@@ -1,10 +1,9 @@
-# tires optimizer
+# Cleaning process of data
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-# Descripción del funcionamiento
+# Description
 
-Post conexión vía API-URL firmada, llegaran los archivos al bucket de raw data, en el cúal habrán tópicos de SNS escuchando la llegada de los datos
-de esta manera cada vez que llegué un archivo, se gatillarán las lambdas de limpieza de las distintas fuentes de datos.
+Lambda functions for cleaning process
 
 # Descripción de stack
 
