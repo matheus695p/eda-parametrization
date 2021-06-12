@@ -1,4 +1,4 @@
-# tires-optimizer/src/tires-rul/daily-process
+# src/ads/daily-process
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)##
 
