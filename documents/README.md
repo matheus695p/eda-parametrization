@@ -1,5 +1,5 @@
 # fuel-opt/documents
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)##
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 ### Ficha técnica KOM 930 E
 http://maquqam.com/tecnicas/mineria-11994/komatsu/930e-4.html
