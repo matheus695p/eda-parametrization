@@ -1,4 +1,4 @@
-# tires-optimizer/documents
+# fuel-opt/documents
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)##
 
 ### Ficha técnica KOM 930 E
