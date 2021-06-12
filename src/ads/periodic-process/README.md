@@ -1,6 +1,6 @@
 # src/ads/daily-process
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)##
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 ## Este es un proceso diario que va a resumir a nivel de equipo y a nivel de neumatico, caracteristicas que tuvieron durante el día
 ADS: columnas que integra a nivel de llave de equipo
