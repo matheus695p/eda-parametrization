@@ -102,7 +102,7 @@ def lower_rename(df):
     return df
 
 
-def drop_nan_columns(df, index=0):
+def drop_nan_columns(df, threshold=0):
     """
     Drop columns con una cantidad de nans mayor a la necesaria
 
@@ -124,7 +124,7 @@ def drop_nan_columns(df, index=0):
     nans_recount["percentage"] = nans_recount["nans_count"] / \
         len(df) * 100
     droping_cols = list(
-        nans_recount[nans_recount["percentage"] > index]["index"])
+        nans_recount[nans_recount["percentage"] > threshold]["index"])
     df.drop(columns=droping_cols, inplace=True)
     df.reset_index(drop=True, inplace=True)
     return df

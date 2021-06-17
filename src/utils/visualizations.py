@@ -4,7 +4,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from src.utils import try_create_folder
+from matplotlib import cm as cm
+from src.utils.create import try_create_folder
 plt.style.use('dark_background')
 matplotlib.rc('xtick', labelsize=20)
 matplotlib.rc('ytick', labelsize=20)
@@ -292,3 +293,41 @@ def watch_distributiions(y_train, y_test, target_cols):
         kernel_density_estimation(pd.DataFrame(
             y_test[:, i], columns=["y_test"]), "y_test",
             name="Testing"+target_cols[i])
+
+
+def correlation_matrix(df, method="pearson"):
+    """
+    Hacer matriz de correlaciones según distintos métodos de correlación,
+    para analizar a simple vista los datos
+    Parameters
+    ----------
+    df : dataframe
+        dataset que estamos analizando.
+    method : string, optional
+        método de correlación soportados por libreria pandas
+        {‘pearson’, ‘kendall’, ‘spearman’} .
+        The default is "pearson".
+    Returns
+    -------
+    None.
+    """
+    letter_size = 30
+    fig = plt.figure(figsize=(70, 70))
+    ax = fig.add_subplot(111)
+    cmap = cm.get_cmap('hot_r', 30)
+    ax = fig.add_subplot(111)
+    size = int(len(list(df.columns))/2)
+    corr = df.corr(method=method)
+    fig, ax = plt.subplots(figsize=(size, size))
+    # ax.matshow(corr, cmap=cmap)
+    sns.heatmap(corr, annot=True, cmap=cmap)
+    plt.xticks(range(len(corr.columns)), corr.columns, fontsize=letter_size)
+    plt.yticks(range(len(corr.columns)), corr.columns, fontsize=letter_size)
+    ax.set_xticklabels(df.columns, fontsize=letter_size)
+    ax.set_yticklabels(df.columns, fontsize=letter_size)
+    plt.xticks(rotation=90)
+    # plt.yticks(rotation=90)
+    ax.set_title(f"Matriz de correlación, método: {method}",
+                 fontname="Arial", fontsize=letter_size+10)
+    path = f"results/correlations/{method}.png"
+    fig.savefig(path)
