@@ -15,11 +15,12 @@ df.drop(columns=["fecha"], inplace=True)
 # target column
 target = ['%cu_conc_final']
 
-
+# separacion target features
 columns = list(df.columns)
 for col in target:
     columns.remove(col)
 
+# target y features
 y = df[target]
 x = df[columns]
 
@@ -46,5 +47,6 @@ score = reg.score(x_test, y_test)
 predictions = reg.predict(x_test)
 coefs = reg.coef_
 
+print(y_test.shape, predictions.shape)
 plot_xy_results(predictions, y_test, index=str(1), name=target[0],
                 folder_name="lr")
