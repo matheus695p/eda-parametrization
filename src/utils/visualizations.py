@@ -209,8 +209,10 @@ def plot_xy_results(predictions, y_test, index=str(1), name="col",
     # plt.ylim(0, 4600)
     # plt.xlim(0, 4600)
     plt.show()
-
-    path = f"results/{folder_name}/{index}-{name}.png"
+    name = folder_name.replace("-", "_")
+    path = f"results/{folder_name}"
+    try_create_folder(path)
+    path = path + f"/{name}_results.png"
     fig.savefig(path)
 
 
