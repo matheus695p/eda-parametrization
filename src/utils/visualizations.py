@@ -156,7 +156,7 @@ def training_history(history, model_name="NN", filename="NN"):
     print(fig)
 
 
-def plot_xy_results(predictions, real, index=str(1), name="col",
+def plot_xy_results(predictions, y_test, index=str(1), name="col",
                     folder_name="nn"):
     """
     Plot sequence de la secuecnia
@@ -164,20 +164,20 @@ def plot_xy_results(predictions, real, index=str(1), name="col",
     ----------
     predictions : array
         predicciones.
-    real : array
-        valores reales.
+    y_test : array
+        valores y_testes.
     fechas : array
         array de fechas.
     indice : TYPE
         indice de la columna.
     Returns
     -------
-    plot de prediciones vs real.
+    plot de prediciones vs y_test.
     """
     plt.style.use('dark_background')
     letter_size = 20
-    mae = np.abs(predictions - real).mean()
-    percentage = np.abs(predictions - real) / real * 100
+    mae = np.abs(predictions - y_test).mean()
+    percentage = np.abs(predictions - y_test) / y_test * 100
     mean_percentage = str(round(percentage.mean(), 2))
     kernel_name = name + \
         " Distribución [%]" + "\n" + f"MAPE: {mean_percentage} [%]"
@@ -185,26 +185,26 @@ def plot_xy_results(predictions, real, index=str(1), name="col",
     kernel_density_estimation(pd.DataFrame(percentage,
                                            columns=["error"]), "error",
                               name=kernel_name, bw_adjust=0.5)
-    kernel_density_estimation(pd.DataFrame(np.abs(predictions - real),
+    kernel_density_estimation(pd.DataFrame(np.abs(predictions - y_test),
                                            columns=["error"]), "error",
                               name=kernel_name, bw_adjust=0.5)
     mae = round(mae, 3)
     # caracteristicas del dataset
-    mean = round(real.mean(), 3)
+    mean = round(y_test.mean(), 3)
     mean = round(mean, 3)
 
-    std = round(real.std(), 3)
+    std = round(y_test.std(), 3)
 
     fig, ax = plt.subplots(1, figsize=(22, 12))
-    plt.scatter(real, real, color='green')
-    plt.scatter(real, predictions, color='orangered')
+    plt.scatter(y_test, y_test, color='green')
+    plt.scatter(y_test, predictions, color='orangered')
     titulo = f"Predicciones {name} --> error: {str(mae)}" + "\n" +\
         f"Caracteristicas: promedio: {str(mean)}, desv: {str(std)}"
     plt.title(titulo, fontsize=30)
-    plt.xlabel('Real', fontsize=30)
+    plt.xlabel('y_test', fontsize=30)
     plt.ylabel(f'Predicción {folder_name}', fontsize=30)
     ax.tick_params(axis='both', which='major', labelsize=22)
-    plt.legend(['real', 'predicción'], loc='upper left',
+    plt.legend(['y_test', 'predicción'], loc='upper left',
                prop={'size': letter_size+5})
     # plt.ylim(0, 4600)
     # plt.xlim(0, 4600)

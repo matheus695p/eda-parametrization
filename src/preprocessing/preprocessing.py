@@ -1,6 +1,27 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+
+
+def supervised_preparation(df_features, df_target):
+    """
+    Hacer la preparación para un aprendizaje supervizado
+    Parameters
+    ----------
+    df_features : datafrane
+        df con los features.
+    df_target : TYPE
+        df con los targets.
+    Returns
+    -------
+    x : numpy.array
+        numpy array de los features.
+    y : numpy.array
+        numpy array de los targets.
+    """
+    x = df_features.to_numpy()
+    y = df_target.to_numpy()
+    return x, y
 
 
 def drop_spaces_data(df):
