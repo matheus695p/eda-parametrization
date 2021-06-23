@@ -135,7 +135,6 @@ for e in range(1, args.epochs+1):
         optimizer.step()
         # loss
         train_epoch_loss += train_loss.item()
-
     # Validación [torch.no_grad() no hacer backpropagation]
     with torch.no_grad():
         model.eval()
@@ -176,9 +175,11 @@ with torch.no_grad():
         print(y_test_pred.size())
         _, y_pred_tags = torch.max(y_test_pred, dim=1)
         y_pred_list.append(y_pred_tags.cpu().numpy())
-predictions = [a.squeeze().tolist() for a in y_pred_list]
 
+# Hacer las predicciones
+predictions = [a.squeeze().tolist() for a in y_pred_list]
+predictions = np.asarray(predictions)
 predictions = np.reshape(predictions, (-1, 1))
 
 plot_xy_results(predictions, y_test, index=str(1), name=target[0],
-                folder_name="random-forest")
+                folder_name="neural-network")
