@@ -1,10 +1,9 @@
 import warnings
 import pandas as pd
-from datetime import datetime
 from hampel import hampel
+from datetime import datetime
 from src.preprocessing.preprocessing import lower_rename, drop_nan_columns
 from src.utils.visualizations import plot_time_series
-
 warnings.filterwarnings("ignore")
 
 # read data
