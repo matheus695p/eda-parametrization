@@ -1,6 +1,6 @@
 ![Build Status](https://www.repostatus.org/badges/latest/inactive.svg)
 
 
-# exploratory data analysis parametrization
+# Flotation
 
-Repo para hacer exploraciones rápidas con pandas-profiling y entragarlas en .html bonito
+Repo para hacer baseline de proyecto con flotación
